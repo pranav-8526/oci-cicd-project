@@ -35,7 +35,7 @@ A simple Node.js Express API. It has two main endpoints:
 
 ### 2. Containerization (Docker)
 The application is packaged using a `Dockerfile`.
-* **Base Image**: We use `node:18-alpine` because it is incredibly lightweight and reduces our attack surface, which is a major security best practice.
+* **Base Image**: We use `node:18-alpine` (a minimal Linux distribution). By starting with an image that is only ~5MB in size, we significantly reduce the attack surface and strip out unnecessary OS utilities that hackers could exploit. This is a major security best practice for enterprise OCI deployments.
 * **Layer Caching**: We copy the `package.json` first and install dependencies, and *then* copy the rest of the application code. This means if we only change a line of code in `server.js`, Docker uses the cached dependency layer, making builds significantly faster.
 * **Security**: We use the built-in `node` user instead of running the container as `root`.
 
